@@ -1,15 +1,15 @@
 # python-style-cplusplus
 A program convert python style c++ codes to standard c++ codes
 
-Usage 
+Usage: 
 
 ./psc2sc your_psc_file.psc
 
-Output
+Output:
 
 your_psc_file.cpp
 
-explain
+Explain:
 
 I defined the psc file means Python Style C++ code file, the file look like this:
 
