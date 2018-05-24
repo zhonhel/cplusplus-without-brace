@@ -11,7 +11,7 @@ your_psc_file.cpp
 
 Explain:
 
-I define my psc file (Python Style C++ code file) look like this:
+I define my psc file (Python Style C++ code file) looking like this:
 
 	while (pscF.getline(lastLine, 5000))
 		for (i = 0; i < strlen(lastLine); i++)
