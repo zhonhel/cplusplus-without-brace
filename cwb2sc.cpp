@@ -3,9 +3,7 @@
 int main(int argc,char* argv[])
 {
 	if (argc < 2)
-	{
 		exit(0);
-	}
 
 	int i, j;
 	int pureNameStartPoint;
@@ -43,12 +41,12 @@ int main(int argc,char* argv[])
 	}
 	pureName[j] = '\0';
 
-	std::fstream pscF(argv[1], std::fstream::in);
+	std::fstream cwbF(argv[1], std::fstream::in);
 	char line[50000],lastLine[50000];
 	int lastLineSpaceNum, thisLineSpaceNum;
 
 	//给第一个lastLineSpaceNum和lastLine赋值
-	while (pscF.getline(lastLine, 50000))
+	while (cwbF.getline(lastLine, 50000))
 	{
 		for (i = 0; i < strlen(lastLine); i++)
 			if (line[i] != ' ' && line[i] != '\t') break;
@@ -69,7 +67,7 @@ int main(int argc,char* argv[])
 	char scFName[6000];
 	sprintf(scFName, "%s/%s.cpp", dir, pureName);
 	FILE* scF = fopen(scFName, "w");
-	while (pscF.getline(line, 50000))
+	while (cwbF.getline(line, 50000))
 	{
 		for (i = 0; i < strlen(line); i++)
 			if (line[i] != ' ' && line[i] != '\t') break;
