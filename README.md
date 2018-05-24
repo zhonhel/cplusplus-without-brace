@@ -1,5 +1,5 @@
 # cplusplus-without-brace
-A program convert c++ codes which without brace to standard c++ codes
+A program that convert c++ codes which without brace to standard c++ codes
 
 <h2>Complie</h2>
 
