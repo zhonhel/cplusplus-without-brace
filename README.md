@@ -11,7 +11,7 @@ your_psc_file.cpp
 
 Explain:
 
-I defined the psc file means Python Style C++ code file, the file look like this:
+I define my psc file (Python Style C++ code file) look like this:
 
 	while (pscF.getline(lastLine, 5000))
 		for (i = 0; i < strlen(lastLine); i++)
@@ -33,4 +33,4 @@ As you can see, the psc file cannot be complied by compiler, so can use this pro
 			lastLineSpaceNum = i;
 			break;}}
 
-And now only accomplished adding brace function. Means you can write this type of C++ code(without brace),and use this program to convert your code to standard C++ code.
+And now only accomplished adding brace function. This means you can write this type of C++ code(without brace),and use this program to convert your code to standard C++ code.
