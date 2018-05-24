@@ -17,7 +17,7 @@ your_file.cpp
 
 The cwb file is actually just txt format file.
 
-I define cwb file which contains C++ codes without brace, and the codes looks like this:
+I define cwb file which contains C++ codes without brace, and the codes look like this:
 
 	while (pscF.getline(lastLine, 5000))
 		for (i = 0; i < strlen(lastLine); i++)
