@@ -47,7 +47,7 @@ int main(int argc,char* argv[])
 	char line[50000],lastLine[50000];
 	int lastLineSpaceNum, thisLineSpaceNum;
 
-	//¸øµÚÒ»¸ölastLineSpaceNumºÍlastLine¸³Öµ
+	//ç»™ç¬¬ä¸€ä¸ªlastLineSpaceNumå’ŒlastLineèµ‹å€¼
 	while (pscF.getline(lastLine, 50000))
 	{
 		for (i = 0; i < strlen(lastLine); i++)
@@ -61,7 +61,7 @@ int main(int argc,char* argv[])
 		}
 	}
 
-	//¿ªÊ¼¶ÁÈ¡
+	//å¼€å§‹è¯»å–
 	int chazhi;
 	int helpArray[5000];
 	int helpArrayLen = 0;
