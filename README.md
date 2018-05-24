@@ -1,19 +1,19 @@
 # cplusplus-without-brace
 A program convert c++ codes which without brace to standard c++ codes
 
-Complie:
+<h1>Complie</h1>
 
 No third-part library used, directly use C++ complier to complie.
 
-Usage: 
+<h1>Usage</h1>
 
 ./cwb2sc your_file.cwb
 
-Output:
+<h1>Output</h1>
 
 your_file.cpp
 
-Explain:
+<h1>Explain</h1>
 
 The cwb file is actually just txt format file.
 
