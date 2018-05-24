@@ -2,12 +2,15 @@
 A program convert python style c++ codes to standard c++ codes
 
 Usage 
+
 ./psc2sc your_psc_file.psc
 
 Output
+
 your_psc_file.cpp
 
 explain
+
 I defined the psc file means Python Style C++ code file, the file look like this:
 
 	while (pscF.getline(lastLine, 5000))
