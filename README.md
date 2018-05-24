@@ -1,17 +1,23 @@
-# python-style-cplusplus
-A program convert python style c++ codes to standard c++ codes
+# cplusplus-without-brace
+A program convert c++ codes which without braces to standard c++ codes
+
+Complie:
+
+No third-part library used, directly use C++ complier to complie.
 
 Usage: 
 
-./psc2sc your_psc_file.psc
+./cwb2sc your_file.cwb
 
 Output:
 
-your_psc_file.cpp
+your_file.cpp
 
 Explain:
 
-I define my psc file (Python Style C++ code file) looking like this:
+The cwb file is actually just txt format file.
+
+I define cwb file which contains C++ codes without brace, and the codes looks like this:
 
 	while (pscF.getline(lastLine, 5000))
 		for (i = 0; i < strlen(lastLine); i++)
@@ -21,8 +27,8 @@ I define my psc file (Python Style C++ code file) looking like this:
 		else
 			lastLineSpaceNum = i;
 			break;
-      
-As you can see, the psc file cannot be complied by compiler, so can use this program to convert psc file to standard C++ code:
+
+As you can see, this type of code cannot be complied by compiler, so can use this program to convert these codes to standard C++ codes:
 
 	while (pscF.getline(lastLine, 5000)){
 		for (i = 0; i < strlen(lastLine); i++){
@@ -32,5 +38,3 @@ As you can see, the psc file cannot be complied by compiler, so can use this pro
 		else{
 			lastLineSpaceNum = i;
 			break;}}
-
-And now only accomplished adding brace function. This means you can write this type of C++ code(without brace),and use this program to convert your code to standard C++ code.
