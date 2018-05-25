@@ -1,51 +1,60 @@
 #include<fstream>
 
-int main(int argc,char* argv[])
+void getDirAndPureName(char* dir, char* pureName, char* inFFullName)
 {
-	if (argc < 2)
-		exit(0);
-
 	int i, j;
 	int pureNameStartPoint;
-	int dirNameLastPoint;
-	for (i=strlen(argv[1]);i>=0;i--)
+	int dirNameEndPoint;
+	for (i = strlen(inFFullName); i >= 0; i--)
 	{
-		if (argv[1][i] == '/' || argv[1][i] == '\\')
+		if (inFFullName[i] == '/' || inFFullName[i] == '\\')
 		{
 			pureNameStartPoint = i + 1;
 			i--;
-			for(;i>=0;i--)
-				if (argv[1][i] != '/' && argv[1][i] != '\\')
+			for (; i >= 0; i--)
+				if (inFFullName[i] != '/' && inFFullName[i] != '\\')
 				{
-					dirNameLastPoint = i;
+					dirNameEndPoint = i;
 					goto myStop;
 				}
 		}
-			
 	}
-	
+
 	myStop:;
 
+	for (i = 0; i <= dirNameEndPoint; i++)
+		dir[i] = inFFullName[i];
+	dir[i] = '\0';
+
+	for (i = pureNameStartPoint, j = 0; i < strlen(inFFullName); i++, j++)
+	{
+		if (inFFullName[i] == '.')
+			break;
+		pureName[j] = inFFullName[i];
+	}
+	pureName[j] = '\0';
+}
+
+int main(int argc,char* argv[])
+{
+	if (argc < 2)
+	{
+		printf("\nPlease attach the cwb file's full name as a command line parameter\n\n\n");
+		printf("eg : ./cwb2sc your_file.cwb\n\n\n");
+		exit(0);
+	}
+		
 	char dir[5000];
 	char pureName[1000];
 
-	for (i = 0; i <= dirNameLastPoint; i++)
-		dir[i] = argv[1][i];
-	dir[i] = '\0';
-
-	for (i = pureNameStartPoint, j = 0; i < strlen(argv[1]); i++, j++)
-	{
-		if (argv[1][i] == '.')
-			break;
-		pureName[j] = argv[1][i];
-	}
-	pureName[j] = '\0';
+	getDirAndPureName(dir, pureName, argv[1]);
 
 	std::fstream cwbF(argv[1], std::fstream::in);
 	char line[50000],lastLine[50000];
 	int lastLineSpaceNum, thisLineSpaceNum;
 
-	//ç»™ç¬¬ä¸€ä¸ªlastLineSpaceNumå’ŒlastLineèµ‹å€¼
+	//¸øµÚÒ»¸ölastLineSpaceNumºÍlastLine¸³Öµ
+	int i, j;
 	while (cwbF.getline(lastLine, 50000))
 	{
 		for (i = 0; i < strlen(lastLine); i++)
@@ -59,7 +68,7 @@ int main(int argc,char* argv[])
 		}
 	}
 
-	//å¼€å§‹è¯»å–
+	//¿ªÊ¼¶ÁÈ¡Óë´¦Àí
 	int chazhi;
 	int helpArray[5000];
 	int helpArrayLen = 0;
@@ -67,6 +76,7 @@ int main(int argc,char* argv[])
 	char scFName[6000];
 	sprintf(scFName, "%s/%s.cpp", dir, pureName);
 	FILE* scF = fopen(scFName, "w");
+
 	while (cwbF.getline(line, 50000))
 	{
 		for (i = 0; i < strlen(line); i++)
@@ -119,4 +129,6 @@ int main(int argc,char* argv[])
 	fprintf(scF, "%s\n", lastLine);
 
 	fclose(scF);
+
+	printf("\n\n\nCongratulations! Transform successfully!\n\n\n");
 }
