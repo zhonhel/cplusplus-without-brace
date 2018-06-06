@@ -1,40 +1,14 @@
+/*
+使用方法：
+./cwb2sc.exe yourFileDir/yourFile.cwb
+
+思路：
+利用空格和tab加大括号
+1、当发现当前行比上一行空格或tab数多，在上一行末尾加一个 ‘{’
+2、当发现当前行比上一行空格或tab数少n个，在上一行末尾加n个 ‘}’
+*/
+
 #include<fstream>
-
-void getDirAndPureName(char* dir, char* pureName, char* inFFullName)
-{
-	int i, j;
-	int pureNameStartPoint;
-	int dirNameEndPoint;
-	for (i = strlen(inFFullName); i >= 0; i--)
-	{
-		if (inFFullName[i] == '/' || inFFullName[i] == '\\')
-		{
-			pureNameStartPoint = i + 1;
-			i--;
-			for (; i >= 0; i--)
-				if (inFFullName[i] != '/' && inFFullName[i] != '\\')
-				{
-					dirNameEndPoint = i;
-					goto myStop;
-				}
-		}
-	}
-
-	myStop:;
-
-	for (i = 0; i <= dirNameEndPoint; i++)
-		dir[i] = inFFullName[i];
-	dir[i] = '\0';
-
-	for (i = pureNameStartPoint, j = 0; i < strlen(inFFullName); i++, j++)
-	{
-		if (inFFullName[i] == '.')
-			break;
-		pureName[j] = inFFullName[i];
-	}
-	pureName[j] = '\0';
-}
-
 int main(int argc,char* argv[])
 {
 	if (argc < 2)
@@ -43,11 +17,6 @@ int main(int argc,char* argv[])
 		printf("eg : ./cwb2sc your_file.cwb\n\n\n");
 		exit(0);
 	}
-		
-	char dir[5000];
-	char pureName[1000];
-
-	getDirAndPureName(dir, pureName, argv[1]);
 
 	std::fstream cwbF(argv[1], std::fstream::in);
 	char line[50000],lastLine[50000];
@@ -68,14 +37,20 @@ int main(int argc,char* argv[])
 		}
 	}
 
-	//开始读取与处理
+	//逐行读取cwb文件，且逐行写入cpp文件
 	int chazhi;
 	int helpArray[5000];
 	int helpArrayLen = 0;
 	int num;
-	char scFName[6000];
-	sprintf(scFName, "%s/%s.cpp", dir, pureName);
-	FILE* scF = fopen(scFName, "w");
+
+	char fileFullNameNew[5000];
+	strcpy(fileFullNameNew, argv[1]);
+	int fileFullNameNewLen = strlen(fileFullNameNew);
+	fileFullNameNew[fileFullNameNewLen - 3] = 'c';
+	fileFullNameNew[fileFullNameNewLen - 2] = 'p';
+	fileFullNameNew[fileFullNameNewLen - 1] = 'p';
+
+	FILE* cppF = fopen(fileFullNameNew, "w");
 
 	while (cwbF.getline(line, 50000))
 	{
@@ -113,11 +88,10 @@ int main(int argc,char* argv[])
 			}
 		}
 		
-		fprintf(scF, "%s\n", lastLine);
+		fprintf(cppF, "%s\n", lastLine);
 
 		lastLineSpaceNum = thisLineSpaceNum;
 		strcpy(lastLine, line);
-
 
 	}
 
@@ -126,9 +100,9 @@ int main(int argc,char* argv[])
 		lastLine[strlen(lastLine) + 1] = '\0';
 		lastLine[strlen(lastLine)] = '}';
 	}
-	fprintf(scF, "%s\n", lastLine);
+	fprintf(cppF, "%s\n", lastLine);
 
-	fclose(scF);
+	fclose(cppF);
 
 	printf("\n\n\nCongratulations! Transform successfully!\n\n\n");
 }
