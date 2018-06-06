@@ -1,6 +1,6 @@
 /*
 使用方法：
-./cwb2sc.exe yourFileDir/yourFile.cwb
+./cwb2sc your_file.cwb
 
 思路：
 利用空格和tab加大括号
