@@ -13,7 +13,7 @@ No third-part library used, directly use C++ complier to complie.
 
 your_file.cpp
 
-<h2>Explain</h2>
+<h2>Explanation</h2>
 
 The cwb file is actually just txt format file.
 
