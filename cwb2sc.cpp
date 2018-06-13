@@ -1,11 +1,12 @@
 /*
-Ê¹ÓÃ·½·¨£º
-./cwb2sc your_file.cwb
+Usageï¼š
+./cwb2sc your_c++_code.cwb
 
-Ë¼Â·£º
-ÀûÓÃ¿Õ¸ñºÍtab¼Ó´óÀ¨ºÅ
-1¡¢µ±·¢ÏÖµ±Ç°ĞĞ±ÈÉÏÒ»ĞĞ¿Õ¸ñ»òtabÊı¶à£¬ÔÚÉÏÒ»ĞĞÄ©Î²¼ÓÒ»¸ö ¡®{¡¯
-2¡¢µ±·¢ÏÖµ±Ç°ĞĞ±ÈÉÏÒ»ĞĞ¿Õ¸ñ»òtabÊıÉÙn¸ö£¬ÔÚÉÏÒ»ĞĞÄ©Î²¼Ón¸ö ¡®}¡¯
+Methodï¼š
+According to spaces and tabs to add braces.
+Reading the cwb file line by line:
+1. When finding current line has more spaces or tabs than last line, add a '{' at the end of the previous line.
+2. When finding current line has fewer spaces or tabs than last line, then find out how many '}' should be added at the end of the previous line.
 */
 
 #include<fstream>
@@ -22,7 +23,7 @@ int main(int argc,char* argv[])
 	char line[50000],lastLine[50000];
 	int lastLineSpaceNum, thisLineSpaceNum;
 
-	//¸øµÚÒ»¸ölastLineSpaceNumºÍlastLine¸³Öµ
+	//get values of the first lastLineSpaceNum & lastLine variables.
 	int i, j;
 	while (cwbF.getline(lastLine, 50000))
 	{
@@ -37,11 +38,11 @@ int main(int argc,char* argv[])
 		}
 	}
 
-	//ÖğĞĞ¶ÁÈ¡cwbÎÄ¼ş£¬ÇÒÖğĞĞĞ´ÈëcppÎÄ¼ş
-	int chazhi;
+	//read .cwb file and convert it to standard C++ code into .cpp file line by line.
+	int differenceValue;
 	int helpArray[5000];
 	int helpArrayLen = 0;
-	int num;
+	int needBraceNum;
 
 	char fileFullNameNew[5000];
 	strcpy(fileFullNameNew, argv[1]);
@@ -60,28 +61,28 @@ int main(int argc,char* argv[])
 			continue;
 		else
 			thisLineSpaceNum = i;
-		chazhi = thisLineSpaceNum - lastLineSpaceNum;
+		differenceValue = thisLineSpaceNum - lastLineSpaceNum;
 
-		if (chazhi > 0)
+		if (differenceValue > 0)
 		{
-			helpArray[helpArrayLen] = chazhi;
+			helpArray[helpArrayLen] = differenceValue;
 			helpArrayLen += 1;
 			lastLine[strlen(lastLine) + 1] = '\0';
 			lastLine[strlen(lastLine)] = '{';
 		}
-		else if (chazhi < 0)
+		else if (differenceValue < 0)
 		{
 			for (i = helpArrayLen-1; i >= 0; i--)
 			{
-				chazhi += helpArray[i];
-				if (chazhi == 0)
+				differenceValue += helpArray[i];
+				if (differenceValue == 0)
 				{
-					num = helpArrayLen - i;
+					needBraceNum = helpArrayLen - i;
 					helpArrayLen = i;
 					break;
 				}
 			}
-			for (i = 0; i < num; i++)
+			for (i = 0; i < needBraceNum; i++)
 			{
 				lastLine[strlen(lastLine) + 1] = '\0';
 				lastLine[strlen(lastLine)] = '}';
