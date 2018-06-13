@@ -5,8 +5,10 @@ Usage：
 Method：
 According to spaces and tabs to add braces.
 Reading the cwb file line by line:
-1. When finding current line has more spaces or tabs than last line, add a '{' at the end of the previous line.
-2. When finding current line has fewer spaces or tabs than last line, then find out how many '}' should be added at the end of the previous line.
+1. When finding current line has more spaces or tabs than the previous line, 
+   add a '{' at the end of the previous line.
+2. When finding current line has fewer spaces or tabs than the previous line,
+   then find out how many '}' should be added at the end of the previous line.
 */
 
 #include<fstream>
