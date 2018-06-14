@@ -5,14 +5,14 @@ Usage：
 Method：
 According to spaces and tabs to add braces.
 Reading the cwb file line by line:
-1. When finding current line has more spaces or tabs than the previous line, 
-   add a '{' at the end of the previous line.
-2. When finding current line has fewer spaces or tabs than the previous line,
-   then find out how many '}' should be added at the end of the previous line.
+1. When finding current line has more spaces or tabs than last line,
+add a '{' at the end of last line.
+2. When finding current line has fewer spaces or tabs than last line,
+then find out how many '}' should be added at the end of last line.
 */
 
 #include<fstream>
-int main(int argc,char* argv[])
+int main(int argc, char* argv[])
 {
 	if (argc < 2)
 	{
@@ -22,15 +22,15 @@ int main(int argc,char* argv[])
 	}
 
 	std::fstream cwbF(argv[1], std::fstream::in);
-	char line[50000],lastLine[50000];
-	int lastLineSpaceNum, thisLineSpaceNum;
+	char currentLine[50000], lastLine[50000];
+	int currentLineSpaceNum, lastLineSpaceNum;
 
 	//get values of the first lastLineSpaceNum & lastLine variables.
 	int i, j;
 	while (cwbF.getline(lastLine, 50000))
 	{
 		for (i = 0; i < strlen(lastLine); i++)
-			if (line[i] != ' ' && line[i] != '\t') break;
+			if (lastLine[i] != ' ' && lastLine[i] != '\t') break;
 		if (i == strlen(lastLine))
 			continue;
 		else
@@ -46,24 +46,25 @@ int main(int argc,char* argv[])
 	int helpArrayLen = 0;
 	int needBraceNum;
 
-	char fileFullNameNew[5000];
-	strcpy(fileFullNameNew, argv[1]);
-	int fileFullNameNewLen = strlen(fileFullNameNew);
-	fileFullNameNew[fileFullNameNewLen - 3] = 'c';
-	fileFullNameNew[fileFullNameNewLen - 2] = 'p';
-	fileFullNameNew[fileFullNameNewLen - 1] = 'p';
+	char cppFileFullName[5000];
+	strcpy(cppFileFullName, argv[1]);
+	int cppFileFullNameLen = strlen(cppFileFullName);
+	cppFileFullName[cppFileFullNameLen - 3] = 'c';
+	cppFileFullName[cppFileFullNameLen - 2] = 'p';
+	cppFileFullName[cppFileFullNameLen - 1] = 'p';
 
-	FILE* cppF = fopen(fileFullNameNew, "w");
+	FILE* cppF = fopen(cppFileFullName, "w");
 
-	while (cwbF.getline(line, 50000))
+	while (cwbF.getline(currentLine, 50000))
 	{
-		for (i = 0; i < strlen(line); i++)
-			if (line[i] != ' ' && line[i] != '\t') break;
-		if (i == strlen(line))
+		for (i = 0; i < strlen(currentLine); i++)
+			if (currentLine[i] != ' ' && currentLine[i] != '\t') break;
+		if (i == strlen(currentLine))
 			continue;
 		else
-			thisLineSpaceNum = i;
-		differenceValue = thisLineSpaceNum - lastLineSpaceNum;
+			currentLineSpaceNum = i;
+
+		differenceValue = currentLineSpaceNum - lastLineSpaceNum;
 
 		if (differenceValue > 0)
 		{
@@ -74,7 +75,7 @@ int main(int argc,char* argv[])
 		}
 		else if (differenceValue < 0)
 		{
-			for (i = helpArrayLen-1; i >= 0; i--)
+			for (i = helpArrayLen - 1; i >= 0; i--)
 			{
 				differenceValue += helpArray[i];
 				if (differenceValue == 0)
@@ -90,15 +91,14 @@ int main(int argc,char* argv[])
 				lastLine[strlen(lastLine)] = '}';
 			}
 		}
-		
+
 		fprintf(cppF, "%s\n", lastLine);
 
-		lastLineSpaceNum = thisLineSpaceNum;
-		strcpy(lastLine, line);
-
+		lastLineSpaceNum = currentLineSpaceNum;
+		strcpy(lastLine, currentLine);
 	}
 
-	for (i = 0; i <helpArrayLen; i++)
+	for (i = 0; i < helpArrayLen; i++)
 	{
 		lastLine[strlen(lastLine) + 1] = '\0';
 		lastLine[strlen(lastLine)] = '}';
