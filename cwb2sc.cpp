@@ -16,8 +16,8 @@ int main(int argc, char* argv[])
 {
 	if (argc < 2)
 	{
-		printf("\nPlease attach the cwb file's full name as a command line parameter\n\n\n");
-		printf("eg : ./cwb2sc your_file.cwb\n\n\n");
+		printf("Please attach the cwb file's full name as a command line parameter\n");
+		printf("eg : ./cwb2sc your_file.cwb\n");
 		exit(0);
 	}
 
@@ -107,5 +107,5 @@ int main(int argc, char* argv[])
 
 	fclose(cppF);
 
-	printf("\n\n\nCongratulations! Transform successfully!\n\n\n");
+	printf("Congratulations! Transform successfully!\n");
 }
