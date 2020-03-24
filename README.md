@@ -7,7 +7,7 @@ No third-part library used, directly use C++ complier to complie.
 
 <h2>Usage</h2>
 
-./cwb2sc  your_file.cwb
+./cwb2sc &emsp;&emsp;&emsp; your_file.cwb
 
 <h2>Output</h2>
 
